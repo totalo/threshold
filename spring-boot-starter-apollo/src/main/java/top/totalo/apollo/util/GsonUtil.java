@@ -3,7 +3,7 @@ package top.totalo.apollo.util;
 import com.google.gson.Gson;
 
 /**
- * gson 工具类
+ * gson tools.
  */
 public class GsonUtil {
 

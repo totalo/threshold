@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  top.totalo.apollo.ApolloAutoConfiguration
