@@ -9,13 +9,14 @@
     <name>threshold</name>
     <packaging>pom</packaging>
     <description>Mainly some out-of-the-box tool modules.</description>
+    <url>https://github.com/totalo/threshold.git</url>
 
     <modules>
         <module>spring-boot-starter-apollo</module>
     </modules>
 
     <properties>
-        <threshold.version>0.0.1-SNAPSHOT</threshold.version>
+        <threshold.version>0.0.1</threshold.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
@@ -85,7 +86,42 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <tag>master</tag>
+        <url>git@github.com:totalo/threshold.git</url>
+        <connection>git@github.com:totalo/threshold.git</connection>
+        <developerConnection>git@github.com:totalo/threshold.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <name>Guocheng Tang</name>
+            <email>totalo@qq.com</email>
+            <organization>totalo</organization>
+        </developer>
+    </developers>
 
 </project>
