@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.util.ReflectionUtils;
 import top.totalo.apollo.ApolloValue;
 import top.totalo.apollo.util.GsonUtil;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,13 +42,17 @@ public class ApolloConfigChangeProcessor implements BeanPostProcessor, PriorityO
 
     @Override
     public int getOrder() {
-        return 0;
+        return Ordered.LOWEST_PRECEDENCE;
     }
-
+    
     private List<Field> findAllField(Class clazz) {
         final List<Field> fields = new LinkedList<>();
-        ReflectionUtils.doWithFields(clazz, fields::add, (Field field) -> Arrays.stream(field.getAnnotations()).anyMatch(item -> item.annotationType().isAnnotationPresent(ApolloValue.class)));
+        ReflectionUtils.doWithFields(clazz, fields::add, this::fieldFilter);
         return fields;
+    }
+    
+    private boolean fieldFilter(Field field) {
+        return null != field.getAnnotation(ApolloValue.class);
     }
 
     protected void processField(Object bean, Field field) {
@@ -57,11 +61,11 @@ public class ApolloConfigChangeProcessor implements BeanPostProcessor, PriorityO
         if (value == null) {
             return;
         }
-        String configValue = getProperty(value.key(), value.namespace(), field, bean);
+        String configValue = getProperty(value.key(), value.namespace(), value.defaultValue(), field, bean);
         injectField(field, bean, configValue);
     }
 
-    private String getProperty(String key, String namespace, Field field, Object bean) {
+    private String getProperty(String key, String namespace, String defaultValue, Field field, Object bean) {
         Config config = ConfigService.getConfig(namespace);
         config.addChangeListener(new ConfigChangeListener() {
             @Override
@@ -72,7 +76,7 @@ public class ApolloConfigChangeProcessor implements BeanPostProcessor, PriorityO
                 }
             }
         });
-        return config.getProperty(key, "");
+        return config.getProperty(key, defaultValue);
     }
 
     private void injectField(Field field, Object bean, String configValue) {
