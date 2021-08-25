@@ -14,6 +14,11 @@ public @interface ApolloValue {
      * apollo key
      */
     String key() default "";
+    
+    /**
+     * defaultValue
+     */
+    String defaultValue() default "";
 
     /**
      * apollo namespace
