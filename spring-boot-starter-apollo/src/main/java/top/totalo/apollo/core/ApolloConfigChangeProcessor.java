@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * apollo 配置处理
+ * Apollo config processor.
  */
 public class ApolloConfigChangeProcessor implements BeanPostProcessor, PriorityOrdered {
 
