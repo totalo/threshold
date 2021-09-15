@@ -56,11 +56,12 @@
             <name>Nexus Snapshot Repository</name>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <name>GitHub totalo Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/totalo/threshold</url>
+        </repository>
     </distributionManagement>
-
-    ————————————————
-    版权声明：本文为CSDN博主「码农小胖哥」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-    原文链接：https://blog.csdn.net/qq_35067322/article/details/115222696
 
 
     <profiles>
