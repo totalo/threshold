@@ -13,7 +13,7 @@ public @interface ApolloValue {
     /**
      * apollo key
      */
-    String key() default "";
+    String key();
     
     /**
      * defaultValue
